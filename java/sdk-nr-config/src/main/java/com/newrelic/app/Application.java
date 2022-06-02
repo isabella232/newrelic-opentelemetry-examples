@@ -11,8 +11,11 @@ import io.opentelemetry.exporter.otlp.logs.OtlpGrpcLogExporter;
 import io.opentelemetry.exporter.otlp.metrics.OtlpGrpcMetricExporter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import io.opentelemetry.instrumentation.log4j.appender.v2_17.OpenTelemetryAppender;
+import io.opentelemetry.instrumentation.runtimemetrics.Classes;
+import io.opentelemetry.instrumentation.runtimemetrics.Cpu;
 import io.opentelemetry.instrumentation.runtimemetrics.GarbageCollector;
 import io.opentelemetry.instrumentation.runtimemetrics.MemoryPools;
+import io.opentelemetry.instrumentation.runtimemetrics.Threads;
 import io.opentelemetry.instrumentation.spring.webmvc.SpringWebMvcTelemetry;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.logs.LogLimits;
@@ -49,6 +52,9 @@ public class Application {
     // Register runtime metrics instrumentation
     MemoryPools.registerObservers(openTelemetrySdk);
     GarbageCollector.registerObservers(openTelemetrySdk);
+    Threads.registerObservers(openTelemetrySdk);
+    Cpu.registerObservers(openTelemetrySdk);
+    Classes.registerObservers(openTelemetrySdk);
 
     SpringApplication.run(Application.class, args);
   }
