@@ -1,5 +1,10 @@
 plugins {
   id 'java-library'
+  id 'application'
+}
+
+application {
+  mainClassName = 'com.newrelic.app.Application'
 }
 
 dependencies {
@@ -10,8 +15,12 @@ dependencies {
 
   implementation 'io.opentelemetry:opentelemetry-sdk'
   implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+  implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure'
+  implementation 'io.opentelemetry.instrumentation:opentelemetry-kafka-clients-common'
 
   implementation 'org.apache.kafka:kafka-clients:2.8.1'
+
+  implementation 'com.github.javafaker:javafaker:0.13'
 }
 
 test {
