@@ -3,31 +3,17 @@ plugins {
 }
 
 dependencies {
-  compileOnly("com.google.auto.value:auto-value-annotations:1.9")
-  annotationProcessor("com.google.auto.value:auto-value:1.9")
-  compileOnly("com.google.code.findbugs:jsr305:3.0.2")
-  compileOnly("javax.annotation:javax.annotation-api:1.3.2")
+  implementation("org.testcontainers:kafka:1.17.2")
+
+  implementation 'org.slf4j:slf4j-api:1.7.30'
+  implementation 'org.slf4j:slf4j-simple:1.7.30'
 
   implementation 'io.opentelemetry:opentelemetry-sdk'
   implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
-  implementation 'io.opentelemetry:opentelemetry-exporter-otlp-logs'
-  implementation 'io.opentelemetry:opentelemetry-exporter-otlp-common'
-  implementation 'io.opentelemetry:opentelemetry-exporter-logging'
-  implementation 'io.opentelemetry:opentelemetry-semconv'
 
   implementation 'org.apache.kafka:kafka-clients:2.8.1'
-
-  testRuntimeOnly "org.apache.kafka:kafka_2.13:2.8.1"
-  testImplementation 'io.opentelemetry:opentelemetry-sdk-testing'
-  testImplementation("com.salesforce.kafka.test:kafka-junit5:3.2.3") {
-    exclude module: 'zookeeper' // conflicts with zookeeper from kafka_2.x
-  }
-  implementation("org.slf4j:jul-to-slf4j:1.7.36")
-  runtimeOnly("org.slf4j:slf4j-simple:1.7.36")
 }
 
 test {
   useJUnitPlatform()
-
-  systemProperty "java.util.logging.config.class", "io.opentelemetry.kafka.JulBridgeInitializer"
 }
